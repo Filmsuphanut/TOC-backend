@@ -16,7 +16,7 @@ def web_sp_graph(Scraping):
 while(True):
 
     current_time = datetime.datetime.now().time()
-    scraping_time = datetime.time(0,15, 0)
+    scraping_time = datetime.time(0,19, 0)
 
     if(scraping_time.minute == current_time.minute):
     #if(True):
@@ -29,6 +29,7 @@ while(True):
                 data = web_sp(sc)
             except:
                 print("Error")
+                pass
 
         data = None
         while data is None:
@@ -39,6 +40,7 @@ while(True):
                 print("/n/n/n")
             except:
                 print("Error")
+                pass
 
 
 
