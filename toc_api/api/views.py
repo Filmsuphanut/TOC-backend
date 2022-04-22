@@ -2,22 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
 import os
 import json
-from .scraping import Scraping
 from django.views.decorators.csrf import csrf_exempt
-import time
 # Create your views here.
-
-def webscraping_all_data():
-    sc = Scraping()
-    sc.scrap()
-    time.sleep(5)
-    sc.scrap_inves()
-
-@csrf_exempt
-def go_scraping(request):
-    if request.method == 'POST':
-        webscraping_all_data()
-        return HttpResponse("Scraping. . . . ")
 
 @csrf_exempt
 def say_hello(request):
@@ -26,7 +12,7 @@ def say_hello(request):
 @csrf_exempt
 def investing(request):
 
-    if request.method == 'POST':
+    if request.method == 'GET':
         var = json.loads(request.body)["currency"]
 
         if var == "USD1" or var == "USD5" or var == "USD50":

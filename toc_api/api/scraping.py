@@ -1,4 +1,3 @@
-from locale import currency
 from bs4 import BeautifulSoup, Comment
 import regex as re
 from selenium import webdriver
@@ -71,7 +70,6 @@ class Scraping:
         self.browser.get(url)
         time.sleep(5)##########
         html = self.browser.page_source
-        time.sleep(3)
         soup = BeautifulSoup(html, features="html.parser")
         return soup
 
@@ -226,7 +224,6 @@ class Scraping:
     #return soup
 
     def investing(self,website):
-        time.sleep(5)
         soup = self.browser_get(website)
 
         data = re.findall('<tr>(.+?)</tr>',
@@ -336,18 +333,28 @@ class Scraping:
 
         self.pack_bank_to_json(currency_list,all_bank_data,path)
 
+
+
     def scrap_inves(self):
         self.browser = self.start_browser()
-        time.sleep(5)
 
         module_dir = os.path.dirname(__file__)
         path = str(module_dir)+'/data/'
 
         for cur in self.currency_list:
+
             website = self.get_inveswebsite(str(cur))
             print("scraping : ",website)
-            data = self.investing(website)
+
+            data = None
+            while data is None:
+                try:
+                    data = self.investing(website)
+                except:
+                    continue
+
             self.pack_inves_to_json(data,path,cur)
 
-
         self.end_browser(self.browser)
+
+        return "SUCCESS"
