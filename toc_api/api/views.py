@@ -12,14 +12,14 @@ def say_hello(request):
 @csrf_exempt
 def investing(request):
 
-    if request.method == 'GET':
+    if request.method == 'POST':
         var = json.loads(request.body)["currency"]
 
         if var == "USD1" or var == "USD5" or var == "USD50":
             var = "USD"
         
         module_dir = os.path.dirname(__file__)
-        file_path = os.path.join(module_dir, 'data/thb-'+var.lower()+'.json')
+        file_path = "api/data/thb-"+var+".json"
         f = open(file_path,encoding='utf-8')
         data = json.load(f)
 

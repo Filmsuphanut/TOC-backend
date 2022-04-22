@@ -68,7 +68,7 @@ class Scraping:
 
     def browser_get(self,url):
         self.browser.get(url)
-        time.sleep(5)##########
+        #time.sleep(4)##########
         html = self.browser.page_source
         soup = BeautifulSoup(html, features="html.parser")
         return soup
@@ -99,9 +99,10 @@ class Scraping:
         options.add_argument('--disable-dev-shm-usage')  
              
         # executable_path param is not needed if you updated PATH
-
         module_dir = os.path.dirname(__file__)
+        #print(module_dir)
         browser = webdriver.Chrome(options=options, executable_path= str(module_dir)+'/99.0.4844.51/chromedriver_win32/chromedriver.exe')
+        #browser = None
         return browser
 
     def end_browser(self,browser):
@@ -251,6 +252,9 @@ class Scraping:
         return list(set(currency_list))
 
 
+
+
+    #update method kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
     def pack_bank_to_json(self,currency_list,all_bank_data,path):
         
         ############## all currency without usd1,5-20,50-100
@@ -293,6 +297,7 @@ class Scraping:
             result.to_json(path+str(currency)+'.json',force_ascii=False)
 
 
+    #update method kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
     def pack_inves_to_json(self,data,path,cur):
 
         col = ['Date', 'Price', 'Open','High','Low','Change(%)']
@@ -325,7 +330,7 @@ class Scraping:
 
         #to json
         module_dir = os.path.dirname(__file__)
-        path = str(module_dir)+'/data/'
+        path = str(module_dir)+"/data/"
 
         ban = ['KHR','QAR','BHD','VND','BND','OMR','LAK','MMK']
         
@@ -333,13 +338,15 @@ class Scraping:
 
         self.pack_bank_to_json(currency_list,all_bank_data,path)
 
+        return "SUCCESS"
+
 
 
     def scrap_inves(self):
         self.browser = self.start_browser()
 
         module_dir = os.path.dirname(__file__)
-        path = str(module_dir)+'/data/'
+        path = str(module_dir)+"/data/"
 
         for cur in self.currency_list:
 
@@ -350,10 +357,9 @@ class Scraping:
             while data is None:
                 try:
                     data = self.investing(website)
+                    self.pack_inves_to_json(data,path,cur)
                 except:
-                    continue
-
-            self.pack_inves_to_json(data,path,cur)
+                    pass
 
         self.end_browser(self.browser)
 
