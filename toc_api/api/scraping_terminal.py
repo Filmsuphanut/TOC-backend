@@ -21,7 +21,7 @@ while(True):
         print("Scraping at : ",datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
         try:
-            #web_sp(sc)
+            web_sp(sc)
             web_sp_graph(sc)
             print("Scraping Success !!")
         except:
