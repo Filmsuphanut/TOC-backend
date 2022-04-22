@@ -13,7 +13,7 @@ def web_sp_graph(Scraping):
 while(True):
 
     current_time = datetime.datetime.now().time()
-    scraping_time = datetime.time(0, 24, 0)
+    scraping_time = datetime.time(0, 19, 0)
 
     if(scraping_time.minute == current_time.minute):
     #if(True):
@@ -21,7 +21,7 @@ while(True):
         print("Scraping at : ",datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
         try:
-            web_sp(sc)
+            #web_sp(sc)
             web_sp_graph(sc)
             print("Scraping Success !!")
         except:
