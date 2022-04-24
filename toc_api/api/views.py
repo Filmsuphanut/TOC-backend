@@ -9,35 +9,50 @@ from django.views.decorators.csrf import csrf_exempt
 def say_hello(request):
     return HttpResponse("hello world")
 
-@csrf_exempt
-def investing(request):
+# @csrf_exempt
+# def investing(request):
 
-    if request.method == 'POST':
-        var = json.loads(request.body)["currency"]
+#     if request.method == 'POST':
+#         var = json.loads(request.body)["currency"]
 
-        if var == "USD1" or var == "USD5" or var == "USD50":
-            var = "USD"
+#         if var == "USD1" or var == "USD5" or var == "USD50":
+#             var = "USD"
         
-        module_dir = os.path.dirname(__file__)
-        file_path = "api/data/thb-"+var+".json"
-        f = open(file_path,encoding='utf-8')
-        data = json.load(f)
+#         module_dir = os.path.dirname(__file__)
+#         file_path = "api/data/thb-"+var+".json"
+#         f = open(file_path,encoding='utf-8')
+#         data = json.load(f)
 
-        return JsonResponse(data)
+#         return JsonResponse(data)
 
+
+# @csrf_exempt
+# def graph_(request):
+
+#     if request.method == 'POST':
+#         var = json.loads(request.body)["currency"]
+
+#         if var == "USD1" or var == "USD5" or var == "USD50":
+#             var = "USD"
+        
+#         module_dir = os.path.dirname(__file__)
+#         file_path = os.path.join(module_dir, 'data/'+str(var)+'.json')
+#         f = open(file_path,encoding='utf-8')
+#         data = json.load(f)
+
+#         return JsonResponse(data)
+
+
+
+###################################################################################################
 
 @csrf_exempt
-def graph_(request):
-
+def compare(request):
     if request.method == 'POST':
-        var = json.loads(request.body)["currency"]
+        category = json.loads(request.body)["category"]
+        currency = json.loads(request.body)["currency"]
 
-        if var == "USD1" or var == "USD5" or var == "USD50":
-            var = "USD"
-        
-        module_dir = os.path.dirname(__file__)
-        file_path = os.path.join(module_dir, 'data/'+str(var)+'.json')
-        f = open(file_path,encoding='utf-8')
-        data = json.load(f)
+    print(category,currency)
+    return HttpResponse("hello world")
 
-        return JsonResponse(data)
+    var = json.loads(request.body)["currency"]

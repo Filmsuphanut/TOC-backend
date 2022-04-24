@@ -353,14 +353,14 @@ class Scraping:
 
         all_bank_data = [kasi_data.copy(),scb_data.copy(),bangkok_data.copy(),krungthai_data.copy(),krungsri_data.copy()]
         currency_list = self.get_currency(all_bank_data)
-
+        print(currency_list)
         #to json
         module_dir = os.path.dirname(__file__)
         path = str(module_dir)+"/data/"
 
         ban = ['KHR','QAR','BHD','VND','BND','OMR','LAK','MMK']
         
-        currency_list = [item for item in self.currency_list if item not in ban]
+        currency_list = [item for item in currency_list if item not in ban]
 
         self.pack_bank_to_json(currency_list,all_bank_data,path)
 
