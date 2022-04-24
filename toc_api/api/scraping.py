@@ -4,6 +4,7 @@ from selenium import webdriver
 import pandas as pd
 import time
 import os
+import numpy as np
 
 class Scraping:
 
@@ -308,7 +309,15 @@ class Scraping:
             dd = self.remove_tag(str(d))
             df.loc[len(df)] = dd
 
-        df.to_json(path+'thb-'+cur+'.json',force_ascii=False)
+        for i,d in enumerate(data):
+            dd = self.remove_tag(str(d))
+            dd[1:5] = [np.float64(x) for x in dd[1:5]]
+            df.loc[len(df)] = dd
+
+        inves_csv = pd.read_csv("csv/"+cur+"_THB.csv")
+        #df_join = pd.concat([df, inves_csv],ignore_index=True).drop_duplicates()
+
+        #df_join.to_json(path+'thb-'+cur+'.json',force_ascii=False)
 
 
 
