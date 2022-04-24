@@ -24,7 +24,7 @@ while(True):
 
 
     print("Scraping at : ",datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-    #web_sp(sc)
+    web_sp(sc)
     web_sp_inves(sc)
     print("******************************************************")
     print("Success ! ! ")

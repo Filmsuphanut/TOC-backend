@@ -6,6 +6,11 @@ import time
 import os
 import numpy as np
 
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium.common.exceptions import TimeoutException
+
 class Scraping:
 
     def __init__(self):
@@ -73,6 +78,15 @@ class Scraping:
     def browser_get(self,url):
         self.browser.get(url)
         time.sleep(10)##########
+
+        # delay = 20 # seconds
+        # try:
+        #     myElem = WebDriverWait(self.browser, delay).until(EC.presence_of_element_located((By.ID, 'IdOfMyElement')))
+        #     print("############################################################################Page is ready!")
+        # except TimeoutException:
+        #     print("############################################################################Loading took too much time!")
+
+
         html = self.browser.page_source
         soup = BeautifulSoup(html, features="html.parser")
         return soup
@@ -376,3 +390,33 @@ class Scraping:
         #self.end_browser(self.browser)
 
         return "SUCCESS"
+
+
+sc = Scraping()
+
+def web_sp(Scraping):
+    return Scraping.scrap()
+
+def web_sp_inves(Scraping):
+    return Scraping.scrap_inves()
+
+while(True):
+
+    # current_time = datetime.datetime.now().time()
+    # scraping_time = datetime.time(0,40, 0)
+
+    #if(scraping_time.minute == current_time.minute):
+    #if(True):
+    
+    
+
+
+    #print("Scraping at : ",datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    web_sp(sc)
+    web_sp_inves(sc)
+    print("******************************************************")
+    print("Success ! ! ")
+    print("\n\n\n")
+
+
+    time.sleep(21600)
