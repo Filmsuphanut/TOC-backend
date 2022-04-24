@@ -14,19 +14,24 @@ def web_sp_inves(Scraping):
 
 while(True):
 
-    current_time = datetime.datetime.now().time()
-    scraping_time = datetime.time(0,40, 0)
+    # current_time = datetime.datetime.now().time()
+    # scraping_time = datetime.time(0,40, 0)
 
-    if(scraping_time.minute == current_time.minute):
+    #if(scraping_time.minute == current_time.minute):
     #if(True):
     
-        print("Scraping at : ",datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-        web_sp(sc)
-        web_sp_inves(sc)
-        print("******************************************************")
-        print("Success ! ! ")
-        print("\n\n\n")
+    
 
+
+    print("Scraping at : ",datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    #web_sp(sc)
+    web_sp_inves(sc)
+    print("******************************************************")
+    print("Success ! ! ")
+    print("\n\n\n")
+
+
+    time.sleep(120)
         # data = None
         # while data is None:
         #     try:
