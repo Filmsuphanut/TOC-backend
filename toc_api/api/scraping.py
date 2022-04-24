@@ -315,7 +315,7 @@ class Scraping:
     def scrap(self):
         #start_browser
 
-        self.browser = self.start_browser()
+        #self.browser = self.start_browser()
         time.sleep(2)
 
         kasi_data = self.kasikorn(self.website[0])
@@ -323,7 +323,7 @@ class Scraping:
         bangkok_data = self.bangkok(self.website[2])
         krungthai_data = self.krungthai(self.website[3])
         krungsri_data = self.krungsri(self.website[4])
-        self.end_browser(self.browser)
+        #self.end_browser(self.browser)
 
         all_bank_data = [kasi_data.copy(),scb_data.copy(),bangkok_data.copy(),krungthai_data.copy(),krungsri_data.copy()]
         currency_list = self.get_currency(all_bank_data)
@@ -343,7 +343,7 @@ class Scraping:
 
 
     def scrap_inves(self):
-        self.browser = self.start_browser()
+        #self.browser = self.start_browser()
 
         module_dir = os.path.dirname(__file__)
         path = str(module_dir)+"/data/"
@@ -361,6 +361,6 @@ class Scraping:
                 except:
                     pass
 
-        self.end_browser(self.browser)
+        #self.end_browser(self.browser)
 
         return "SUCCESS"

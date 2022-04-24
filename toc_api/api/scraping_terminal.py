@@ -13,6 +13,9 @@ def web_sp_graph(Scraping):
     return Scraping.scrap_inves()
 
 
+sc.start_browser()
+time.sleep(5)
+
 while(True):
 
     current_time = datetime.datetime.now().time()
