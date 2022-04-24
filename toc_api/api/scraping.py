@@ -68,7 +68,7 @@ class Scraping:
 
     def browser_get(self,url):
         self.browser.get(url)
-        #time.sleep(4)##########
+        time.sleep(10)##########
         html = self.browser.page_source
         soup = BeautifulSoup(html, features="html.parser")
         return soup

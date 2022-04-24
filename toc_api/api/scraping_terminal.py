@@ -16,7 +16,7 @@ def web_sp_graph(Scraping):
 while(True):
 
     current_time = datetime.datetime.now().time()
-    scraping_time = datetime.time(0,19, 0)
+    scraping_time = datetime.time(0,48, 0)
 
     if(scraping_time.minute == current_time.minute):
     #if(True):
