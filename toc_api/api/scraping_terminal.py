@@ -9,41 +9,42 @@ sc = Scraping()
 def web_sp(Scraping):
     return Scraping.scrap()
 
-def web_sp_graph(Scraping):
+def web_sp_inves(Scraping):
     return Scraping.scrap_inves()
-
-
-sc.start_browser()
-time.sleep(5)
 
 while(True):
 
     current_time = datetime.datetime.now().time()
-    scraping_time = datetime.time(0,48, 0)
+    scraping_time = datetime.time(0,40, 0)
 
     if(scraping_time.minute == current_time.minute):
     #if(True):
     
         print("Scraping at : ",datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+        web_sp(sc)
+        web_sp_inves(sc)
+        print("******************************************************")
+        print("Success ! ! ")
+        print("\n\n\n")
 
-        data = None
-        while data is None:
-            try:
-                data = web_sp(sc)
-            except:
-                print("Error")
-                pass
+        # data = None
+        # while data is None:
+        #     try:
+        #         data = web_sp(sc)
+        #     except:
+        #         print("Error")
+        #         pass
 
-        data = None
-        while data is None:
-            try:
-                data = web_sp_graph(sc)
-                print("******************************************************")
-                print("Success ! ! ")
-                print("/n/n/n")
-            except:
-                print("Error")
-                pass
+        # data = None
+        # while data is None:
+        #     try:
+        #         data = web_sp_inves(sc)
+        #         print("******************************************************")
+        #         print("Success ! ! ")
+        #         print("/n/n/n")
+        #     except:
+        #         print("Error")
+        #         pass
 
 
 

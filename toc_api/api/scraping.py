@@ -9,6 +9,9 @@ import numpy as np
 class Scraping:
 
     def __init__(self):
+
+        self.browser = self.start_browser()
+
         self.website = ["https://www.kasikornbank.com/en/rate/pages/foreign-exchange.aspx",
         "https://www.scb.co.th/th/personal-banking/foreign-exchange-rates.html",
         "https://www.bangkokbank.com/th-TH/Personal/Other-Services/View-Rates/Foreign-Exchange-Rates",
@@ -295,7 +298,7 @@ class Scraping:
                     result.loc[len(result)] = [bank_name[index]]+['-','-','-','-','-']+['-','-','-','-']
                         
             #result.to_csv('bank_buy_sell_rate/'+str(currency)+'.csv',index=False)
-            result.to_json(path+str(currency)+'.json',force_ascii=False)
+            result.to_json(path+str(currency)+'.json',orient="records",force_ascii=False)
 
 
     #update method kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
@@ -315,9 +318,9 @@ class Scraping:
             df.loc[len(df)] = dd
 
         inves_csv = pd.read_csv("csv/"+cur+"_THB.csv")
-        #df_join = pd.concat([df, inves_csv],ignore_index=True).drop_duplicates()
+        df_join = pd.concat([df, inves_csv],ignore_index=True).drop_duplicates()
 
-        #df_join.to_json(path+'thb-'+cur+'.json',force_ascii=False)
+        df_join.to_json(path+'thb-'+cur+'.json',orient="records",force_ascii=False)
 
 
 
@@ -362,13 +365,13 @@ class Scraping:
             website = self.get_inveswebsite(str(cur))
             print("scraping : ",website)
 
-            data = None
-            while data is None:
-                try:
-                    data = self.investing(website)
-                    self.pack_inves_to_json(data,path,cur)
-                except:
-                    pass
+            # data = None
+            # while data is None:
+            #     try:
+            data = self.investing(website)
+            self.pack_inves_to_json(data,path,cur)
+                # except:
+                #     pass
 
         #self.end_browser(self.browser)
 
