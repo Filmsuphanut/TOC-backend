@@ -8,9 +8,8 @@ urlpatterns = [
     #path('go_scraping/', views.go_scraping),
 
     path('compare/', views.compare),
-
-
-
-
+    path('currency/detail/<str:cur>/', views.detail),
+    path('choice/', views.choice),
+    path('currency/', views.currency),
+    path('header/', views.header),
 ]
-
