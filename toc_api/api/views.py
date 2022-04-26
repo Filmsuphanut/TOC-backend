@@ -653,35 +653,64 @@ def choice(request):#no usd but usd1 usd5 usd50
         }, inplace = True)
 
         csv2.replace(str('-'),0,inplace=True)
-        csv2['bank_buy_notes'] = [float(x) for x in csv2['bank_buy_notes']]
-        csv2['bank_buy_bill'] = [float(x) for x in csv2['bank_buy_bill']]
-        csv2['bank_buy_t_c'] = [float(x) for x in csv2['bank_buy_t_c']]
-        csv2['bank_buy_d_d'] = [float(x) for x in csv2['bank_buy_d_d']]
-        csv2['bank_buy_t_t'] = [float(x) for x in csv2['bank_buy_t_t']]
-        csv2['bank_sell_notes'] = [float(x) for x in csv2['bank_sell_notes']]
-        csv2['bank_sell_t_c'] = [float(x) for x in csv2['bank_sell_t_c']]
-        csv2['bank_sell_d_d'] = [float(x) for x in csv2['bank_sell_d_d']]
-        csv2['bank_sell_t_t'] = [float(x) for x in csv2['bank_sell_t_t']]
+
+        for col in csv2:
+            if col != 'bank':
+                #csv2[col] = [round(float(x),2) for x in csv2[col]]
+                csv2[col] = [(float(x)) for x in csv2[col]]
+
+
+        # csv2['bank_buy_notes'] = [float(x) for x in csv2['bank_buy_notes']]
+        # csv2['bank_buy_bill'] = [float(x) for x in csv2['bank_buy_bill']]
+        # csv2['bank_buy_t_c'] = [float(x) for x in csv2['bank_buy_t_c']]
+        # csv2['bank_buy_d_d'] = [float(x) for x in csv2['bank_buy_d_d']]
+        # csv2['bank_buy_t_t'] = [float(x) for x in csv2['bank_buy_t_t']]
+        # csv2['bank_sell_notes'] = [float(x) for x in csv2['bank_sell_notes']]
+        # csv2['bank_sell_t_c'] = [float(x) for x in csv2['bank_sell_t_c']]
+        # csv2['bank_sell_d_d'] = [float(x) for x in csv2['bank_sell_d_d']]
+        # csv2['bank_sell_t_t'] = [float(x) for x in csv2['bank_sell_t_t']]
+
+        # for col in csv2.iloc[:,1:]:
+        #     for row in range(len(csv2.index)):
+        #         csv2[col].iloc[row] = round(csv2[col].iloc[row],2)
+        #         if csv2[col].iloc[row] == 0:
+        #             csv2[col].iloc[row] = "-"
 
         taget_column = "bank_" + decision_+"_" + type_
 
-        
-
         csv3 = csv2.copy()
+        print(csv3)
 
         #print(csv2)
         #print(csv2[taget_column])
-        if decision_ == "buy":
-            csv3 = csv2.iloc[csv2[taget_column].idxmax()]
-        elif decision_ == "sell":
-            csv3 = csv2.iloc[csv2[taget_column].idxmin()]
+        if len(csv2[csv2[taget_column] != 0]) == 1:
+
+            indx = (csv2[csv2[taget_column] != 0].index)[0]
+            csv3 = csv2.iloc[indx]
+
+        elif len(csv2[csv2[taget_column] != 0]) == 0:
+            csv3 = csv2.iloc[0]
+        else:
+            if decision_ == "buy":
+                idx = (csv2[csv2[taget_column] != 0][taget_column].idxmax())
+                csv3 = csv2.iloc[idx]
+                #csv3 = csv2[csv2[taget_column] != 0].iloc[csv2[taget_column]].max()
+                #csv3 = csv2[csv2[taget_column] != 0].iloc[csv2[taget_column].idxmax()]
+            elif decision_ == "sell":
+                idx = (csv2[csv2[taget_column] != 0][taget_column].idxmin())
+                csv3 = csv2.iloc[idx]
+                #csv3 = csv2[csv2[taget_column] != 0].iloc[csv2[taget_column]].min()
+                #csv3 = csv2[csv2[taget_column] != 0].iloc[csv2[taget_column].idxmin()]
 
 
-        #print(decision_,currency_,type_,amount_)
-        bank_name =  str(csv3['bank']) if int(round(csv3[taget_column],2)) != 0 else "-"
-        bankimg = bank_name_[csv3['bank']] if int(csv3[taget_column]) != 0 else "none"
-        single_price = str(float(round(csv3[taget_column],2))) +"฿" if int(round(csv3[taget_column],2)) != 0 else "-"
-        total_price = str(float(round(amount_*csv3[taget_column],2))) +"฿" if int(round(amount_*csv3[taget_column],2)) !=0 else "-"
+        #csv2.replace(str('-'),0,inplace=True)
+
+        #print(csv3)
+        print(decision_,currency_,type_,amount_)
+        bank_name =  str(csv3['bank']) if float(round(csv3[taget_column],2)) != 0 else "-"
+        bankimg = bank_name_[csv3['bank']] if float(csv3[taget_column]) != 0 else "none"
+        single_price = str(float(round(csv3[taget_column],2))) +"฿" if float(round(csv3[taget_column],2)) != 0 else "-"
+        total_price = str(float(round(amount_*csv3[taget_column],2))) +"฿" if float(round(amount_*csv3[taget_column],2)) !=0 else "-"
 
         bestbank = {'bank_img' : bankimg,'bank_name' : bank_name
         ,'type' : str(type_name[type_]),'currency' : currency_,'amout' : float(round(amount_,2))
@@ -693,6 +722,7 @@ def choice(request):#no usd but usd1 usd5 usd50
         #csv2.replace(float(0),str('-'),inplace=True)
         for col in csv2.iloc[:,1:]:
             for row in range(len(csv2.index)):
+                #csv2[col].iloc[row] = format(csv2[col].iloc[row],".2f")
                 csv2[col].iloc[row] = round(csv2[col].iloc[row],2)
                 if csv2[col].iloc[row] == 0:
                     csv2[col].iloc[row] = "-"
