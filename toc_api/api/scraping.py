@@ -419,4 +419,4 @@ while(True):
     print("\n\n\n")
 
 
-    time.sleep(21600)
+    time.sleep(43200)

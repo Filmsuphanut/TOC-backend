@@ -679,7 +679,7 @@ def choice(request):#no usd but usd1 usd5 usd50
         taget_column = "bank_" + decision_+"_" + type_
 
         csv3 = csv2.copy()
-        print(csv3)
+        #print(csv3)
 
         #print(csv2)
         #print(csv2[taget_column])
@@ -706,7 +706,7 @@ def choice(request):#no usd but usd1 usd5 usd50
         #csv2.replace(str('-'),0,inplace=True)
 
         #print(csv3)
-        print(decision_,currency_,type_,amount_)
+        #print(decision_,currency_,type_,amount_)
         bank_name =  str(csv3['bank']) if float(round(csv3[taget_column],2)) != 0 else "-"
         bankimg = bank_name_[csv3['bank']] if float(csv3[taget_column]) != 0 else "none"
         single_price = str(float(round(csv3[taget_column],2))) +"฿" if float(round(csv3[taget_column],2)) != 0 else "-"
