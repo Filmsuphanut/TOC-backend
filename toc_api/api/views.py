@@ -112,7 +112,7 @@ def detail(request,cur):
         #df["date"] = datetime.strptime(csv["วันเดือนปี"],'%b %d, %Y')
         #df["date"] = csv["Date"]
 
-        df["price"] = csv["Price"].round(decimals=2)
+        df["price"] = csv["Price"].round(decimals=4)
         df["date"] = "s"
 
         for i,d in enumerate(csv["Date"]):
@@ -152,7 +152,7 @@ def detail(request,cur):
 
         csv2.replace(str('-'),0,inplace=True)
         for col in csv2.iloc[:,1:]:
-            csv2[col] = [round(float(x),2) for x in csv2[col]]
+            csv2[col] = [round(float(x),4) for x in csv2[col]]
         
         for col in csv2.iloc[:,1:]:
             for row in range(len(csv2.index)):
@@ -304,10 +304,10 @@ def get_detail():
             status = "equal"
 
         df["status"].iloc[i] = status
-        df["price"].iloc[i] = round(csv["Price"].iloc[0], 2)
-        df["open"].iloc[i] = round(csv["Open"].iloc[0], 2)
-        df["high"].iloc[i] = round(csv["High"].iloc[0], 2)
-        df["low"].iloc[i] = round(csv["Low"].iloc[0], 2)
+        df["price"].iloc[i] = round(csv["Price"].iloc[0], 4)
+        df["open"].iloc[i] = round(csv["Open"].iloc[0], 4)
+        df["high"].iloc[i] = round(csv["High"].iloc[0], 4)
+        df["low"].iloc[i] = round(csv["Low"].iloc[0], 4)
         df["change"].iloc[i] = round(abs(csv["Price"].iloc[0] - csv["Price"].iloc[1]), 2)
         df["percentage"].iloc[i] = str(abs(float(csv["Change(%)"].iloc[0][:-1])))+"%"
 
@@ -445,10 +445,10 @@ def currency(request):
                 status = "equal"
 
             df["status"].iloc[i] = status
-            df["price"].iloc[i] = round(csv["Price"].iloc[0], 2)
-            df["open"].iloc[i] = round(csv["Open"].iloc[0], 2)
-            df["high"].iloc[i] = round(csv["High"].iloc[0], 2)
-            df["low"].iloc[i] = round(csv["Low"].iloc[0], 2)
+            df["price"].iloc[i] = round(csv["Price"].iloc[0], 4)
+            df["open"].iloc[i] = round(csv["Open"].iloc[0], 4)
+            df["high"].iloc[i] = round(csv["High"].iloc[0], 4)
+            df["low"].iloc[i] = round(csv["Low"].iloc[0], 4)
             df["change"].iloc[i] = round(abs(csv["Price"].iloc[0] - csv["Price"].iloc[1]), 2)
             df["percentage"].iloc[i] = str(abs(float(csv["Change(%)"].iloc[0][:-1])))+"%"
 
@@ -707,13 +707,13 @@ def choice(request):#no usd but usd1 usd5 usd50
 
         #print(csv3)
         #print(decision_,currency_,type_,amount_)
-        bank_name =  str(csv3['bank']) if float(round(csv3[taget_column],2)) != 0 else "-"
+        bank_name =  str(csv3['bank']) if float(round(csv3[taget_column],4)) != 0 else "-"
         bankimg = bank_name_[csv3['bank']] if float(csv3[taget_column]) != 0 else "none"
-        single_price = str(float(round(csv3[taget_column],2))) +"฿" if float(round(csv3[taget_column],2)) != 0 else "-"
-        total_price = str(float(round(amount_*csv3[taget_column],2))) +"฿" if float(round(amount_*csv3[taget_column],2)) !=0 else "-"
+        single_price = str(float(round(csv3[taget_column],4))) +"฿" if float(round(csv3[taget_column],2)) != 0 else "-"
+        total_price = str(float(round(amount_*csv3[taget_column],4))) +"฿" if float(round(amount_*csv3[taget_column],2)) !=0 else "-"
 
         bestbank = {'bank_img' : bankimg,'bank_name' : bank_name
-        ,'type' : str(type_name[type_]),'currency' : currency_,'amout' : float(round(amount_,2))
+        ,'type' : str(type_name[type_]),'currency' : currency_,'amout' : float(round(amount_,4))
         ,'single_price' :single_price ,'total_price' : total_price}
 
         #csv2[['bank_buy_notes','bank_buy_bill','bank_buy_t_c','bank_buy_d_d','bank_buy_t_t','bank_sell_notes','bank_sell_t_c','bank_sell_d_d','bank_sell_t_t']] = csv2[['bank_buy_notes','bank_buy_bill','bank_buy_t_c','bank_buy_d_d','bank_buy_t_t','bank_sell_notes','bank_sell_t_c','bank_sell_d_d','bank_sell_t_t']].apply(lambda x: x*amount_)
@@ -723,7 +723,7 @@ def choice(request):#no usd but usd1 usd5 usd50
         for col in csv2.iloc[:,1:]:
             for row in range(len(csv2.index)):
                 #csv2[col].iloc[row] = format(csv2[col].iloc[row],".2f")
-                csv2[col].iloc[row] = round(csv2[col].iloc[row],2)
+                csv2[col].iloc[row] = round(csv2[col].iloc[row],4)
                 if csv2[col].iloc[row] == 0:
                     csv2[col].iloc[row] = "-"
 

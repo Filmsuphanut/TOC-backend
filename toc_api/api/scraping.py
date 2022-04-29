@@ -303,6 +303,40 @@ class Scraping:
                 get_cur = False      
                 for currency_data in bank:
                     if currency_data[0] == currency:
+
+                        #update bug fix
+                        #JPY
+                        if currency_data[0] == "JPY" and (bank_name[index] == bank_name[1] or bank_name[index] == bank_name[3] or bank_name[index] == bank_name[4]):
+                            currency_data[1] = [str(float(i)/100) if i != "-" else str(i) for i in currency_data[1]]
+                            currency_data[2] = [str(float(i)/100) if i != "-" else str(i) for i in currency_data[2]]    
+
+                        #IDR
+                        if currency_data[0] == "IDR" and (bank_name[index] == bank_name[2] or bank_name[index] == bank_name[4]):
+                            currency_data[1] = [str(float(i)/1000) if i != "-" else str(i) for i in currency_data[1]]
+                            currency_data[2] = [str(float(i)/1000) if i != "-" else str(i) for i in currency_data[2]]   
+
+                        #KRW
+                        if currency_data[0] == "KRW" and (bank_name[index] == bank_name[4]):
+                            currency_data[1] = [str(float(i)/100) if i != "-" else str(i) for i in currency_data[1]]
+                            currency_data[2] = [str(float(i)/100) if i != "-" else str(i) for i in currency_data[2]]   
+
+                        #MMK
+                        if currency_data[0] == "MMK" and (bank_name[index] == bank_name[2]):
+                            currency_data[1] = [str(float(i)/100) if i != "-" else str(i) for i in currency_data[1]]
+                            currency_data[2] = [str(float(i)/100) if i != "-" else str(i) for i in currency_data[2]]   
+
+                        #LAK
+                        if currency_data[0] == "LAK" and (bank_name[index] == bank_name[2]):
+                            currency_data[1] = [str(float(i)/1000) if i != "-" else str(i) for i in currency_data[1]]
+                            currency_data[2] = [str(float(i)/1000) if i != "-" else str(i) for i in currency_data[2]] 
+
+                        #VND
+                        if currency_data[0] == "VND" and (bank_name[index] == bank_name[2]):
+                            currency_data[1] = [str(float(i)/1000) if i != "-" else str(i) for i in currency_data[1]]
+                            currency_data[2] = [str(float(i)/1000) if i != "-" else str(i) for i in currency_data[2]] 
+
+
+
                         data_list = [bank_name[index]]+currency_data[1]+currency_data[2]
                         result.loc[len(result)] = data_list
                         get_cur = True
